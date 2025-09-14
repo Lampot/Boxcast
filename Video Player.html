@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canelo Alvarez vs Terence Crawford — Live Player</title>
+  <style>
+    :root{--bg:#100c0c;--card:#0f0b0b;--muted:#9a8f8f;--accent:#ff3b3b}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;color:#fff;background:var(--bg)}
+
+    /* top navigation bar */
+    .nav-bar{display:flex;align-items:center;padding:12px 24px;background:#0d0a0a;gap:20px;position:fixed;top:0;width:100%;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,0.5)}
+    .nav-bar a{color:#fff;text-decoration:none;font-size:14px;padding:6px 12px;border-radius:6px;transition:background 0.2s;cursor:pointer}
+    .nav-bar a:hover{background:rgba(255,255,255,0.05)}
+
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 48px 48px 48px}
+    .player-card{width:100%;max-width:1200px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;overflow:hidden;box-shadow:0 6px 30px rgba(0,0,0,0.6);position:relative}
+
+    /* video area keeps 16:9 ratio */
+    .video-outer{position:relative;padding-top:56.25%;background:#000}
+    .video-outer iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+
+    /* stream selector */
+    .stream-container{position:absolute;top:12px;right:12px;z-index:50;display:flex;align-items:center;flex-wrap:nowrap}
+    .sources-btn{background:rgba(0,0,0,0.6);padding:6px 12px;border-radius:8px;color:#fff;border:none;cursor:pointer;position:relative;z-index:60;white-space:nowrap}
+    .stream-options{display:none;flex-direction:row;background:rgba(0,0,0,0.6);border-radius:8px;position:absolute;right:100%;top:0;transform:translateX(-6px);padding:0 6px;white-space:nowrap;flex-wrap:nowrap}
+    .stream-options button{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#fff;padding:6px 40px;border-radius:6px;cursor:pointer;transition:background 0.2s;margin:4px;white-space:nowrap}
+    .stream-options button:hover{background:rgba(255,255,255,0.1)}
+
+    .meta{padding:18px 22px 28px;background:transparent;position:relative}
+    .title{font-size:20px;font-weight:700;letter-spacing:0.2px;margin:0 0 8px}
+    .badge{display:inline-block;background:rgba(255,255,255,0.06);padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted);margin-right:10px}
+    .meta-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:relative}
+
+    .controls{margin-left:auto;display:flex;gap:10px;align-items:center;position:relative}
+    .btn{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;font-size:14px;color:#fff;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:4px}
+    .btn img{width:18px;height:18px}
+    .description{color:var(--muted);margin-top:14px;line-height:1.45;font-size:14px}
+
+    /* viewer counter next to description, bottom-right */
+    #viewerCounter{
+      position:absolute;
+      bottom:18px;
+      right:22px;
+      background:var(--accent);
+      color:#fff;
+      padding:4px 8px;
+      border-radius:6px;
+      font-size:12px;
+      z-index:60;
+    }
+
+    /* popup */
+    .popup-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:200}
+    .popup{background:#1a1414;padding:24px 32px;border-radius:12px;text-align:center;max-width:320px}
+    .popup button{margin-top:16px;padding:6px 12px;border:none;border-radius:6px;background:#ff3b3b;color:#fff;font-size:14px;cursor:pointer}
+
+    @media (max-width:600px){.title{font-size:18px}.meta{padding:12px}}
+
+    .site-footer{padding:18px;text-align:center;color:rgba(255,255,255,0.06);font-size:12px;margin-top:40px}
+    .nav-logo {
+      height: 30px;
+      width: auto;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <img src="https://i.imgur.com/g9kVlXe.png" alt="Logo" class="nav-logo">
+  <a onclick="showPopup('Home coming soon!')">Home</a>
+  <a onclick="showPopup('Schedule coming soon!')">Schedule</a>
+  <a href="https://discord.gg/v9xbSxSBr7" target="_blank">Discord</a>
+</div>
+
+<div class="wrap">
+  <div class="player-card" role="main">
+    <div class="video-outer" aria-label="Video player" id="videoContainer">
+      <iframe id="mainPlayer" title="Canelo Alvarez vs Terence Crawford Player" marginheight="0" marginwidth="0" src="https://embedsports.top/embed/alpha/saul-canelo-alvarez-vs-terence-crawford/1" scrolling="no" allowfullscreen="yes" allow="encrypted-media; picture-in-picture;" width="100%" height="100%" frameborder="0"></iframe>
+
+      <div class="stream-container">
+        <button class="sources-btn" id="sourcesBtn" onclick="toggleStreams()">Sources</button>
+        <div class="stream-options" id="streamOptions">
+          <button onclick="selectStream(1)">Stream 1</button>
+          <button onclick="selectStream(2)">Stream 2</button>
+          <button onclick="selectStream(3)">Stream 3</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta">
+      <div class="meta-row">
+        <div>
+          <div class="title">Canelo Alvarez vs Terence Crawford</div>
+          <div style="color:var(--muted);font-size:13px">Live — Boxing • Main Event</div>
+        </div>
+
+        <div class="controls" aria-hidden="true">
+          <button class="btn" onclick="castScreen()"><img src="https://brandlogo.org/wp-content/uploads/2024/06/Google-Cast-Icon.png" alt="Cast"></button>
+          <a class="btn" href="https://twitter.com/intent/tweet?text=Watch+Canelo+Alvarez+vs+Terence+Crawford+Live+at+https://boxcast.live" target="_blank">Share</a>
+          <a class="btn" href="https://discord.gg/v9xbSxSBr7" target="_blank">Discord</a>
+        </div>
+      </div>
+
+      <div class="description">Watch the live event here. If the stream doesn't start, try refreshing or using a different browser. This page embeds an external player provided by the event host.</div>
+
+      <!-- Viewer counter below the Discord button -->
+      <div id="viewerCounter">Viewers - 0</div>
+    </div>
+  </div>
+</div>
+
+<div class="site-footer">Built with ❤️ — By Lampot</div>
+
+<div class="popup-overlay" id="popup">
+  <div class="popup" id="popupContent">
+    <p id="popupText"></p>
+    <button onclick="hidePopup()">Dismiss</button>
+  </div>
+</div>
+
+<script>
+  function showPopup(message){
+    document.getElementById('popupText').textContent = message;
+    document.getElementById('popup').style.display = 'flex';
+  }
+  function hidePopup(){
+    document.getElementById('popup').style.display = 'none';
+  }
+
+  function toggleStreams(){
+    const options = document.getElementById('streamOptions');
+    options.style.display = options.style.display === 'flex' ? 'none' : 'flex';
+  }
+
+  function selectStream(number){
+    document.getElementById('mainPlayer').src = `https://embedsports.top/embed/alpha/saul-canelo-alvarez-vs-terence-crawford/${number}`;
+    document.getElementById('streamOptions').style.display = 'none';
+  }
+
+  function castScreen(){
+    if (window.chrome && window.chrome.cast && window.chrome.cast.isAvailable) {
+      const context = cast.framework.CastContext.getInstance();
+      context.requestSession();
+    } else {
+      alert('Cast not available on this device/browser.');
+    }
+  }
+
+  // Smooth viewer counter fluctuation
+  let viewers = Math.floor(Math.random() * 50) + 1; // initial value
+
+  function updateViewerCount() {
+    const change = Math.floor(Math.random() * 2) + 1; // 1 or 2
+    const addOrSubtract = Math.random() < 0.5 ? -1 : 1;
+    viewers += change * addOrSubtract;
+
+    // keep viewers in range 1-50
+    if (viewers < 1) viewers = 1;
+    if (viewers > 50) viewers = 50;
+
+    document.getElementById('viewerCounter').textContent = `Viewers - ${viewers}`;
+  }
+
+  // Initialize and refresh every 5 seconds
+  document.getElementById('viewerCounter').textContent = `Viewers - ${viewers}`;
+  setInterval(updateViewerCount, 5000);
+</script>
+
+
+</body>
+</html>
