@@ -28,15 +28,28 @@
     .stream-options button{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#fff;padding:6px 40px;border-radius:6px;cursor:pointer;transition:background 0.2s;margin:4px;white-space:nowrap}
     .stream-options button:hover{background:rgba(255,255,255,0.1)}
 
-    .meta{padding:18px 22px 28px;background:transparent}
+    .meta{padding:18px 22px 28px;background:transparent;position:relative}
     .title{font-size:20px;font-weight:700;letter-spacing:0.2px;margin:0 0 8px}
     .badge{display:inline-block;background:rgba(255,255,255,0.06);padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted);margin-right:10px}
-    .meta-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .meta-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:relative}
 
-    .controls{margin-left:auto;display:flex;gap:10px;align-items:center}
+    .controls{margin-left:auto;display:flex;gap:10px;align-items:center;position:relative}
     .btn{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;font-size:14px;color:#fff;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:4px}
     .btn img{width:18px;height:18px}
     .description{color:var(--muted);margin-top:14px;line-height:1.45;font-size:14px}
+
+    /* viewer counter next to description, bottom-right */
+    #viewerCounter{
+      position:absolute;
+      bottom:18px;
+      right:22px;
+      background:var(--accent);
+      color:#fff;
+      padding:4px 8px;
+      border-radius:6px;
+      font-size:12px;
+      z-index:60;
+    }
 
     /* popup */
     .popup-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:200}
@@ -47,11 +60,10 @@
 
     .site-footer{padding:18px;text-align:center;color:rgba(255,255,255,0.06);font-size:12px;margin-top:40px}
     .nav-logo {
-  height: 30px;       /* adjust size as needed */
-  width: auto;
-  margin-right: 5px; /* spacing between logo and links */
-}
-
+      height: 30px;
+      width: auto;
+      margin-right: 5px;
+    }
   </style>
 </head>
 <body>
@@ -63,78 +75,100 @@
   <a href="https://discord.gg/v9xbSxSBr7" target="_blank">Discord</a>
 </div>
 
+<div class="wrap">
+  <div class="player-card" role="main">
+    <div class="video-outer" aria-label="Video player" id="videoContainer">
+      <iframe id="mainPlayer" title="Canelo Alvarez vs Terence Crawford Player" marginheight="0" marginwidth="0" src="https://embedsports.top/embed/alpha/saul-canelo-alvarez-vs-terence-crawford/1" scrolling="no" allowfullscreen="yes" allow="encrypted-media; picture-in-picture;" width="100%" height="100%" frameborder="0"></iframe>
 
-  <div class="wrap">
-    <div class="player-card" role="main">
-      <div class="video-outer" aria-label="Video player" id="videoContainer">
-        <iframe id="mainPlayer" title="Canelo Alvarez vs Terence Crawford Player" marginheight="0" marginwidth="0" src="https://embedsports.top/embed/alpha/saul-canelo-alvarez-vs-terence-crawford/1" scrolling="no" allowfullscreen="yes" allow="encrypted-media; picture-in-picture;" width="100%" height="100%" frameborder="0"></iframe>
+      <div class="stream-container">
+        <button class="sources-btn" id="sourcesBtn" onclick="toggleStreams()">Sources</button>
+        <div class="stream-options" id="streamOptions">
+          <button onclick="selectStream(1)">Stream 1</button>
+          <button onclick="selectStream(2)">Stream 2</button>
+          <button onclick="selectStream(3)">Stream 3</button>
+        </div>
+      </div>
+    </div>
 
-        <div class="stream-container">
-          <button class="sources-btn" id="sourcesBtn" onclick="toggleStreams()">Sources</button>
-          <div class="stream-options" id="streamOptions">
-            <button onclick="selectStream(1)">Stream 1</button>
-            <button onclick="selectStream(2)">Stream 2</button>
-            <button onclick="selectStream(3)">Stream 3</button>
-          </div>
+    <div class="meta">
+      <div class="meta-row">
+        <div>
+          <div class="title">Canelo Alvarez vs Terence Crawford</div>
+          <div style="color:var(--muted);font-size:13px">Live — Boxing • Main Event</div>
+        </div>
+
+        <div class="controls" aria-hidden="true">
+          <button class="btn" onclick="castScreen()"><img src="https://brandlogo.org/wp-content/uploads/2024/06/Google-Cast-Icon.png" alt="Cast"></button>
+          <a class="btn" href="https://twitter.com/intent/tweet?text=Watch+Canelo+Alvarez+vs+Terence+Crawford+Live+at+https://boxcast.live" target="_blank">Share</a>
+          <a class="btn" href="https://discord.gg/v9xbSxSBr7" target="_blank">Discord</a>
         </div>
       </div>
 
-      <div class="meta">
-        <div class="meta-row">
-          <div>
-            <div class="title">Canelo Alvarez vs Terence Crawford</div>
-            <div style="color:var(--muted);font-size:13px">Live — Boxing • Main Event</div>
-          </div>
+      <div class="description">Watch the live event here. If the stream doesn't start, try refreshing or using a different browser. This page embeds an external player provided by the event host.</div>
 
-          <div class="controls" aria-hidden="true">
-            <button class="btn" onclick="castScreen()"><img src="https://brandlogo.org/wp-content/uploads/2024/06/Google-Cast-Icon.png" alt="Cast"></button>
-            <a class="btn" href="https://twitter.com/intent/tweet?text=Watch+Canelo+Alvarez+vs+Terence+Crawford+Live+at+https://boxcast.live" target="_blank">Share</a>
-            <a class="btn" href="https://discord.gg/v9xbSxSBr7" target="_blank">Discord</a>
-          </div>
-        </div>
-
-        <div class="description">Watch the live event here. If the stream doesn't start, try refreshing or using a different browser. This page embeds an external player provided by the event host.</div>
-      </div>
+      <!-- Viewer counter below the Discord button -->
+      <div id="viewerCounter">Viewers - 0</div>
     </div>
   </div>
+</div>
 
-  <div class="site-footer">Built with ❤️ — By Lampot</div>
+<div class="site-footer">Built with ❤️ — By Lampot</div>
 
-  <div class="popup-overlay" id="popup">
-    <div class="popup" id="popupContent">
-      <p id="popupText"></p>
-      <button onclick="hidePopup()">Dismiss</button>
-    </div>
+<div class="popup-overlay" id="popup">
+  <div class="popup" id="popupContent">
+    <p id="popupText"></p>
+    <button onclick="hidePopup()">Dismiss</button>
   </div>
+</div>
 
-  <script>
-    function showPopup(message){
-      document.getElementById('popupText').textContent = message;
-      document.getElementById('popup').style.display = 'flex';
-    }
-    function hidePopup(){
-      document.getElementById('popup').style.display = 'none';
-    }
+<script>
+  function showPopup(message){
+    document.getElementById('popupText').textContent = message;
+    document.getElementById('popup').style.display = 'flex';
+  }
+  function hidePopup(){
+    document.getElementById('popup').style.display = 'none';
+  }
 
-    function toggleStreams(){
-      const options = document.getElementById('streamOptions');
-      options.style.display = options.style.display === 'flex' ? 'none' : 'flex';
-    }
+  function toggleStreams(){
+    const options = document.getElementById('streamOptions');
+    options.style.display = options.style.display === 'flex' ? 'none' : 'flex';
+  }
 
-    function selectStream(number){
-      document.getElementById('mainPlayer').src = `https://embedsports.top/embed/alpha/saul-canelo-alvarez-vs-terence-crawford/${number}`;
-      document.getElementById('streamOptions').style.display = 'none';
-    }
+  function selectStream(number){
+    document.getElementById('mainPlayer').src = `https://embedsports.top/embed/alpha/saul-canelo-alvarez-vs-terence-crawford/${number}`;
+    document.getElementById('streamOptions').style.display = 'none';
+  }
 
-    function castScreen(){
-      if (window.chrome && window.chrome.cast && window.chrome.cast.isAvailable) {
-        const context = cast.framework.CastContext.getInstance();
-        context.requestSession();
-      } else {
-        alert('Cast not available on this device/browser.');
-      }
+  function castScreen(){
+    if (window.chrome && window.chrome.cast && window.chrome.cast.isAvailable) {
+      const context = cast.framework.CastContext.getInstance();
+      context.requestSession();
+    } else {
+      alert('Cast not available on this device/browser.');
     }
-  </script>
+  }
+
+  // Smooth viewer counter fluctuation
+  let viewers = Math.floor(Math.random() * 50) + 1; // initial value
+
+  function updateViewerCount() {
+    const change = Math.floor(Math.random() * 2) + 1; // 1 or 2
+    const addOrSubtract = Math.random() < 0.5 ? -1 : 1;
+    viewers += change * addOrSubtract;
+
+    // keep viewers in range 1-50
+    if (viewers < 1) viewers = 1;
+    if (viewers > 50) viewers = 50;
+
+    document.getElementById('viewerCounter').textContent = `Viewers - ${viewers}`;
+  }
+
+  // Initialize and refresh every 5 seconds
+  document.getElementById('viewerCounter').textContent = `Viewers - ${viewers}`;
+  setInterval(updateViewerCount, 5000);
+</script>
+
 
 </body>
 </html>
