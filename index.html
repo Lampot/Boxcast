@@ -20,16 +20,27 @@
       background:var(--bg);
     }
 
+    /* Background image */
     body {
-      background: url("https://i0.wp.com/www.muscleandfitness.com/wp-content/uploads/2024/07/Boxer-Terence-Crawford-throwing-a-vicious-jab-to-his-opponent-bloody-face.jpg?quality=86&strip=all") no-repeat center center fixed;
+      background: url("https://e0.365dm.com/25/09/768x432/skysports-crawford-terence_7019907.jpg?20250914071520") no-repeat center center fixed;
       background-size: cover;
     }
-    body::after {
-      content:"";
-      position:fixed;
-      top:0;left:0;width:100%;height:100%;
-      background:rgba(0,0,0,0.6);
-      z-index:-1;
+
+    /* Dark overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.75); /* dark overlay */
+      z-index:0;
+    }
+
+    /* content above overlay */
+    .nav-bar, .hero, .section, .footer, .site-footer {
+      position: relative;
+      z-index: 1;
     }
 
     /* nav bar */
@@ -131,9 +142,14 @@
       flex-direction:column;
     }
     .fight-card img {
-      width:100%;
-      height:auto;
+      width: 100%;
+      height: 200px;     /* all posters same height */
+      object-fit: cover; /* crops evenly */
       display:block;
+      transition: transform 0.3s;
+    }
+    .fight-card img:hover {
+      transform: scale(1.05); /* subtle zoom on hover */
     }
     .fight-card-content {
       padding:20px;
@@ -187,11 +203,14 @@
 </head>
 <body>
 
+  <!-- Dark overlay -->
+  <div class="overlay"></div>
+
   <!-- Nav -->
   <div class="nav-bar">
     <img src="https://i.imgur.com/bq5dawz.png" alt="Boxcast Logo">
-    <a href="#">Home</a>
-    <a href="#">Live Events</a>
+    <a href="https://boxcast.live/">Home</a>
+    <a href="https://boxcast.live/streams">Live Events</a>
     <a href="https://discord.gg/v9xbSxSBr7" target="_blank">Discord</a>
   </div>
 
@@ -199,7 +218,7 @@
   <div class="hero">
     <h1>Welcome to Boxcast Live</h1>
     <p>The Future of Combat Sports Streaming. Faster. Smoother. Stronger. Over 100 sources, built for true fight fans.</p>
-    <a href="#">Watch Live Now</a>
+    <a href="https://boxcast.live/streams">Watch Live Now</a>
   </div>
 
   <!-- Scheduled Fights -->
@@ -209,30 +228,30 @@
 
       <!-- Fight 1 -->
       <div class="fight-card">
-        <img src="https://www.t-mobilearena.com/assets/img/1320x560-48a9896b94.jpg" alt="Canelo vs Crawford Poster">
+        <img src="https://www.t-mobilearena.com/assets/img/1320x560-48a9896b94.jpg" alt="Poster">
         <div class="fight-card-content">
-          <h3>Canelo Alvarez vs Terence Crawford</h3>
-          <p>Main Event — September 21, 2025</p>
+          <h3>UFC 320: Ankalaev vs. Pereira 2</h3>
+          <p>Main Event — October 4, 2025</p>
           <span>Upcoming</span>
         </div>
       </div>
 
       <!-- Fight 2 -->
       <div class="fight-card">
-        <img src="https://via.placeholder.com/600x300?text=Tyson+Fury+vs+Usyk+Poster" alt="Fury vs Usyk Poster">
+        <img src="https://image.discovery.indazn.com/jp/v3/jp/none/1bt4sfasqib9s1xsy25etkzef2_image-gallery_pRow_1757182854000/fill/none/top/none/85/550/205/webp/image" alt="Poster">
         <div class="fight-card-content">
-          <h3>Tyson Fury vs Oleksandr Usyk</h3>
-          <p>Heavyweight Championship — October 12, 2025</p>
+          <h3>Joseph Parker vs. Fabio Wardley</h3>
+          <p>Heavyweight Championship — October 25, 2025</p>
           <span>Upcoming</span>
         </div>
       </div>
 
       <!-- Fight 3 -->
       <div class="fight-card">
-        <img src="https://via.placeholder.com/600x300?text=Davis+vs+Stevenson+Poster" alt="Davis vs Stevenson Poster">
+        <img src="https://image.discovery.indazn.com/jp/v3/jp/none/v65hu2lqy2xe1dabf79sbfs5h_image-gallery_pRow_1751993139000/fill/none/top/none/85/550/205/webp/image" alt="Poster">
         <div class="fight-card-content">
-          <h3>Gervonta Davis vs Shakur Stevenson</h3>
-          <p>Lightweight Bout — November 8, 2025</p>
+          <h3>Ring IV: Night of Champions</h3>
+          <p>Lightweight Bout — November 22, 2025</p>
           <span>Upcoming</span>
         </div>
       </div>
