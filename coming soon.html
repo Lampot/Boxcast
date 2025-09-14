@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boxcast Live — Event Coming Soon</title>
+  <style>
+    :root {
+      --bg:#100c0c;
+      --card:#0f0b0b;
+      --muted:#9a8f8f;
+      --accent:#ff3b3b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;color:#fff;background:var(--bg);display:flex;flex-direction:column}
+
+    /* Nav Bar */
+    .nav-bar {
+      display:flex;
+      align-items:center;
+      padding:12px 24px;
+      background:#0d0a0a;
+      gap:20px;
+      position:fixed;
+      top:0;
+      width:100%;
+      z-index:100;
+      box-shadow:0 2px 6px rgba(0,0,0,0.5);
+    }
+    .nav-bar img {height:34px;width:auto;}
+    .nav-bar a {
+      color:#fff;
+      text-decoration:none;
+      font-size:15px;
+      font-weight:600;
+      padding:8px 14px;
+      border-radius:6px;
+      transition:background 0.2s;
+      cursor:pointer;
+    }
+    .nav-bar a:hover {background:rgba(255,255,255,0.05);}
+
+    /* Main Content */
+    .wrap {
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding-top:120px;
+    }
+
+    .wrap h1 {
+      font-size:48px;
+      font-weight:900;
+      margin-bottom:20px;
+    }
+    .wrap p {
+      font-size:20px;
+      color:var(--muted);
+      margin-bottom:40px;
+    }
+    .wrap a.button {
+      background:var(--accent);
+      padding:16px 32px;
+      border-radius:8px;
+      color:#fff;
+      text-decoration:none;
+      font-size:18px;
+      font-weight:700;
+      transition:background 0.3s;
+    }
+    .wrap a.button:hover {
+      background:#cc0000;
+    }
+
+    .site-footer {
+      padding:20px;
+      text-align:center;
+      color:rgba(255,255,255,0.4);
+      font-size:12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav Bar -->
+  <div class="nav-bar">
+    <img src="https://i.imgur.com/bq5dawz.png" alt="Boxcast Logo">
+    <a onclick="alert('Home coming soon!')">Home</a>
+    <a onclick="alert('Schedule coming soon!')">Schedule</a>
+    <a href="https://discord.gg/v9xbSxSBr7" target="_blank">Discord</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="wrap">
+    <h1>Event Coming Soon</h1>
+    <p>This fight is not live yet. Stay tuned for updates!</p>
+    <a href="https://boxcast.live/streams" class="button">Back to Live Streams</a>
+  </div>
+
+  <div class="site-footer">Built with ❤️ — By Lampot</div>
+
+</body>
+</html>
