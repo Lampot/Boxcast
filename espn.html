@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Boxcast Live</title>
+  <title>BoxCast Live</title>
   <style>
     :root{--bg:#100c0c;--card:#0f0b0b;--muted:#9a8f8f;--accent:#ff3b3b}
     *{box-sizing:border-box}
@@ -13,7 +13,7 @@
     .nav-bar{display:flex;align-items:center;padding:12px 24px;background:#0d0a0a;gap:20px;position:fixed;top:0;width:100%;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,0.5)}
     .nav-bar a{color:#fff;text-decoration:none;font-size:14px;padding:6px 12px;border-radius:6px;transition:background 0.2s;cursor:pointer}
     .nav-bar a:hover{background:rgba(255,255,255,0.05)}
-
+    .nav-bar img {height:34px; width:auto; }
     .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 48px 48px 48px}
     .player-card{width:100%;max-width:1200px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;overflow:hidden;box-shadow:0 6px 30px rgba(0,0,0,0.6);position:relative}
 
@@ -48,10 +48,11 @@
   </style>
 </head>
 <body>
-
+  <!-- Nav -->
   <div class="nav-bar">
-    <a onclick="showPopup('Home coming soon!')">Home</a>
-    <a onclick="showPopup('Schedule coming soon!')">Schedule</a>
+    <img src="https://i.imgur.com/bq5dawz.png" alt="Boxcast Logo">
+    <a href="https://boxcast.live/">Home</a>
+    <a href="https://boxcast.live/streams">Live Events</a>
     <a href="https://discord.gg/v9xbSxSBr7" target="_blank">Discord</a>
   </div>
 
@@ -119,4 +120,3 @@
 
 </body>
 </html>
-
