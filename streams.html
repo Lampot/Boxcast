@@ -1,238 +1,361 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Boxcast Live — Select Video</title>
-  <style>
-    :root{--bg:#100c0c;--card:#0f0b0b;--muted:#9a8f8f;--accent:#ff3b3b}
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;color:#fff;background:var(--bg)}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centered Carousel</title>
+<style>
+* { box-sizing: border-box; }
 
-    /* Nav Bar */
-    .nav-bar {
-      display:flex;
-      align-items:center;
-      padding:12px 24px;
-      background:#0d0a0a;
-      gap:20px;
-      position:fixed;
-      top:0;
-      width:100%;
-      z-index:100;
-      box-shadow:0 2px 6px rgba(0,0,0,0.5);
-    }
-    .nav-bar img {
-      height:34px;
-      width:auto;
-    }
-    .nav-bar a {
-      color:#fff;
-      text-decoration:none;
-      font-size:15px;
-      font-weight:600;
-      padding:8px 14px;
-      border-radius:6px;
-      transition:background 0.2s;
-      cursor:pointer;
-    }
-    .nav-bar a:hover {background:rgba(255,255,255,0.05);}
-
-    /* Main Content */
-    .wrap {
-      padding-top:80px;
-      max-width:1400px;
-      margin:0 auto;
-    }
-
-    .video-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
-      gap:25px;
-      padding:40px 20px;
-    }
-
-    .video-card {
-      display:block;
-      position:relative;
-      background:var(--card);
-      border-radius:12px;
-      overflow:hidden;
-      cursor:pointer;
-      transition:transform 0.2s, box-shadow 0.2s;
-      text-decoration:none;
-      color:inherit;
-    }
-    .video-card:hover {
-      transform:scale(1.03);
-      box-shadow:0 6px 20px rgba(70, 70, 70, 0.4);
-    }
-
-    .video-card .thumbnail {
-      width:100%;
-      padding-top:66.66%;
-      position:relative;
-      overflow:hidden;
-    }
-    .video-card .thumbnail img {
-      position:absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-
-    .video-card .title {
-      padding:12px 12px;
-      font-size:17px;
-      font-weight:700;
-      text-align:center;
-      color:#fff;
-      background:#1f1f1f;
-    }
-
-    .upcoming-badge {
-      position:absolute;
-      top:8px;
-      left:8px;
-      background:#e5ff00;
-      color:#000000;
-      padding:4px 6px;
-      font-size:12px;
-      font-weight:600;
-      border-radius:4px;
-      z-index:10;
-    }
-    .live-badge {
-      position:absolute;
-      top:8px;
-      left:8px;
-      background:#FFFFFF;
-      color:#000000;
-      padding:4px 6px;
-      font-size:12px;
-      font-weight:600;
-      border-radius:4px;
-      z-index:10;
+body {
+  background: #111;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 30px 0;
+  color: #fff;
 }
-    .ended-badge {
-      position:absolute;
-      top:8px;
-      left:8px;
-      background:#fff;
-      color:#000000;
-      padding:4px 6px;
-      font-size:12px;
-      font-weight:600;
-      border-radius:4px;
-      z-index:10;
-    }
-    .site-footer {
-      padding:20px;
-      text-align:center;
-      color:rgba(255,255,255,0.4);
-      font-size:12px;
-      margin-top:40px;
-    }
-  </style>
+
+h1 { font-size: 28px; margin: 0; }
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80vw;
+  margin: 0 auto 20px auto;
+}
+
+.arrow-btn {
+  background: none;
+  border: 1px solid #555;
+  border-radius: 6px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  color: white;
+  transition: all 0.2s ease;
+}
+.arrow-btn:hover { background: #333; }
+
+/* Top-level wrapper allows overflow */
+.carousel-clip-wrapper {
+  width: 100%;
+  overflow: visible; /* allow hover overflow */
+  position: relative;
+}
+
+/* Outer wrapper to center carousel, clip right side */
+.carousel-outer {
+  width: 82vw;
+  overflow: hidden; /* clip right */
+  margin: 0 auto;   /* visually center carousel */
+  position: relative;
+}
+
+.carousel {
+  display: flex;
+  gap: 32px;
+  transition: transform 0.3s ease;
+
+  /* BUFFER SPACE so hover doesn't clip */
+  padding-left: 25px;
+  padding-right: 0px;
+  padding-top: 5px;
+}
+
+.card-container {
+  flex: 0 0 auto;
+  width: 280px;
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  display: block;
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  z-index: 10; /* hover above neighbors */
+}
+
+.card img {
+  width: 100%;
+  display: block;
+  border-radius: 18px; /* FULL ROUNDING */
+}
+
+.badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #e53935;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
+
+.badge1 {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #d9ff00;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+}
+
+.badge2 {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #ffffff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+}
+
+.card-content { padding: 12px 0; }
+.card-content h3 { font-size: 16px; margin: 0 0 4px 0; line-height: 1.2; }
+.card-content p { font-size: 14px; color: #aaa; margin: 0; }
+
+/* Nav Bar */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px; /* keeps original nav height */
+  background: #0d0a0a;
+  gap: 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.nav-bar img {
+  height: 34px;
+  width: auto;
+}
+
+.nav-bar a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.nav-bar a:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Footer */
+.site-footer {
+  padding:20px;
+  text-align:center;
+  color:rgba(255,255,255,0.4);
+  font-size:12px;
+  margin-top:40px;
+}
+</style>
 </head>
 <body>
 
-  <!-- Nav -->
-  <div class="nav-bar">
-    <img src="https://i.imgur.com/bq5dawz.png" alt="Boxcast Logo">
-    <a href="https://boxcast.live/">Home</a>
-    <a href="https://boxcast.live/streams">Live Events</a>
-    <a href="https://discord.gg/v9xbSxSBr7" target="_blank">Discord</a>
-  </div>
+<!-- Nav -->
+<div class="nav-bar">
+  <img src="https://i.imgur.com/bq5dawz.png" alt="Logo">
+  <a href="https://boxcast.live/">Home</a>
+  <a href="https://boxcast.live/streams">Live Events</a>
+  <a href="https://discord.gg/v9xbSxSBr7" target="_blank">Discord</a>
+</div>
 
-  <!-- Video Selection -->
-  <div class="wrap">
-    <div class="video-grid">
-
-      <!-- Video 1 -->
-      <a href="https://boxcast.live/stream1" class="video-card">
-        <div class="ended-badge">ENDED</div>
-        <div class="thumbnail">
-          <img src="https://api.toprank.com/storage/uploads/836/conversions/250914_InoueAkhmadaliev_16x9-thumb.webp" alt="Video 1 Thumbnail">
-        </div>
-        <div class="title">Naoya Inoue vs Akhmadaliev</div>
-      </a>
-
-      <!-- Video 2 -->
-      <a href="https://boxcast.live/coming-soon" class="video-card">
-        <div class="upcoming-badge">Upcoming</div>
-        <div class="thumbnail">
-          <img src="https://www.t-mobilearena.com/assets/img/1320x560-48a9896b94.jpg" alt="Video 2 Thumbnail">
-        </div>
-        <div class="title">UFC 320: Ankalaev vs Pereira 2</div>
-      </a>
-
-      <!-- Video 3 -->
-      <a href="https://boxcast.live/coming-soon" class="video-card">
-        <div class="upcoming-badge">Upcoming</div>
-        <div class="thumbnail">
-          <img src="https://image.discovery.indazn.com/jp/v3/jp/none/1bt4sfasqib9s1xsy25etkzef2_image-gallery_pRow_1757182854000/fill/none/top/none/85/550/205/webp/image" alt="Video 3 Thumbnail">
-        </div>
-        <div class="title">Joseph Parker vs Fabio Wardley</div>
-      </a>
-
-      <!-- Video 4 -->
-      <a href="https://boxcast.live/coming-soon" class="video-card">
-        <div class="upcoming-badge">Upcoming</div>
-        <div class="thumbnail">
-          <img src="https://image.discovery.indazn.com/jp/v3/jp/none/v65hu2lqy2xe1dabf79sbfs5h_image-gallery_pRow_1751993139000/fill/none/top/none/85/550/205/webp/image" alt="Video 4 Thumbnail">
-        </div>
-        <div class="title">Ring IV: Night of Champions</div>
-      </a>
-
-      <!-- Video 5 -->
-      <a href="https://boxcast.live/coming-soon" class="video-card">
-        <div class="upcoming-badge">Upcoming</div>
-        <div class="thumbnail">
-          <img src="https://absolutemma.com/wp-content/uploads/2023/04/AdobeStock_80211655_40.jpeg" alt="Video 5 Thumbnail">
-        </div>
-        <div class="title">Coming Soon</div>
-      </a>
-
-      <!-- Video 6 -->
-      <a href="https://boxcast.live/coming-soon" class="video-card">
-        <div class="upcoming-badge">Upcoming</div>
-        <div class="thumbnail">
-          <img src="https://absolutemma.com/wp-content/uploads/2023/04/AdobeStock_80211655_40.jpeg" alt="Video 6 Thumbnail">
-        </div>
-        <div class="title">Coming Soon</div>
-      </a>
-
-      <!-- Video 7 -->
-      <a href="https://boxcast.live/coming-soon" class="video-card">
-        <div class="upcoming-badge">Upcoming</div>
-        <div class="thumbnail">
-          <img src="https://absolutemma.com/wp-content/uploads/2023/04/AdobeStock_80211655_40.jpeg" alt="Video 7 Thumbnail">
-        </div>
-        <div class="title">Coming Soon</div>
-      </a>
-
-      <!-- Video 8 -->
-      <a href="https://boxcast.live/coming-soon" class="video-card">
-        <div class="upcoming-badge">Upcoming</div>
-        <div class="thumbnail">
-          <img src="https://absolutemma.com/wp-content/uploads/2023/04/AdobeStock_80211655_40.jpeg" alt="Video 8 Thumbnail">
-        </div>
-        <div class="title">Coming Soon</div>
-      </a>
-
+<!-- First Carousel Row -->
+<div style="width: 100%; margin-top:80px;">
+  <div class="flex-between">
+    <h1>Currently Live</h1>
+    <div>
+      <button class="arrow-btn" id="prevBtn">&#10094;</button>
+      <button class="arrow-btn" id="nextBtn">&#10095;</button>
     </div>
   </div>
 
-  <div class="site-footer">Built with ❤️ — By Lampot</div>
+  <div class="carousel-clip-wrapper">
+    <div class="carousel-outer" id="carouselWrapper">
+      <div class="carousel" id="carousel">
+        <div class="card-container">
+          <a href="https://boxcast.live/espn" class="card">
+            <img src="https://a.espncdn.com/watchespn/images/watch-promotional.jpg" alt="Game 1">
+            <span class="badge">LIVE</span>
+            <div class="card-content">
+              <h3>ESPN 24/7</h3>
+              <p>24/7 Streaming</p>
+            </div>
+          </a>
+        </div>
+        <div class="card-container">
+          <a href="https://boxcast.live/nflredzone" class="card">
+            <img src="https://assets.goal.com/images/v3/blt19a219a1691e6889/NFL_REDZONE.png?auto=webp&format=pjpg&width=3840&quality=60" alt="Game 1">
+            <span class="badge">LIVE</span>
+            <div class="card-content">
+              <h3>NFL RedZone</h3>
+              <p>24/7 Streaming</p>
+            </div>
+          </a>
+        </div>     
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Second Carousel Row -->
+<div style="width: 100%; margin-top: 50px;">
+  <div class="flex-between">
+    <h1>Upcoming Streams</h1>
+    <div>
+      <button class="arrow-btn" id="prevBtn2">&#10094;</button>
+      <button class="arrow-btn" id="nextBtn2">&#10095;</button>
+    </div>
+  </div>
+
+  <div class="carousel-clip-wrapper">
+    <div class="carousel-outer" id="carouselWrapper2">
+      <div class="carousel" id="carousel2">
+        <div class="card-container">
+          <a href="https://boxcast.live/coming-soon" class="card">
+            <img src="https://i.ytimg.com/vi/o3KleFbn6rA/maxresdefault.jpg" alt="Game 7">
+            <span class="badge1">UPCOMING</span>
+            <div class="card-content">
+              <h3>UFC 320: Ankalaev vs. Pereira 2</h3>
+              <p>UFC | Oct 4</p>
+            </div>
+          </a>
+        </div>
+        <div class="card-container">
+          <a href="https://boxcast.live/coming-soon" class="card">
+            <img src="https://image.discovery.indazn.com/jp/v3/jp/none/1wfsl1y8vgfxe1jflwdmigr7pv_image-header_pRow_1754944529000/fill/none/top/none/85/367/205/webp/image" alt="Game 1">
+            <span class="badge1">UPCOMING</span>
+            <div class="card-content">
+              <h3>Ennis vs. Lima</h3>
+              <p>Matchroom Boxing | Oct 11</p>
+            </div>
+          </a>
+        </div>
+        <div class="card-container">
+          <a href="https://boxcast.live/coming-soon" class="card">
+            <img src="https://schedule.fightmag.com/wp-content/uploads/2025/09/parker-vs-wardley-696x392.jpg" alt="Game 1">
+            <span class="badge1">UPCOMING</span>
+            <div class="card-content">
+              <h3>Joseph Parker vs. Fabio Wardley</h3>
+              <p>Matchroom Boxing | Oct 25</p>
+            </div>
+          </a>
+        </div>
+        <div class="card-container">
+          <a href="https://boxcast.live/coming-soon" class="card">
+            <img src="https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQX7DGX6yJJbqnsxZxFRuo7uItRL--_IxqKg0BTkJ21fgcAO17Ww14D3MHmm_jqNn8P1jkx-3EaPR28_S4arM0WNpGAhJIGweoyZf6sep-ahp-YeGMiC6G90IjRtZ38_jJfywjMpHcC1_TPe6jnOeArryg7s.jpg?r=428" alt="Game 1">
+            <span class="badge1">UPCOMING</span>
+            <div class="card-content">
+              <h3>Jake Paul vs. Gervonta Davis</h3>
+              <p>MVP Promotions | Nov 14</p>
+            </div>
+          </a>
+        </div>
+                <div class="card-container">
+          <a href="https://boxcast.live/coming-soon" class="card">
+            <img src="https://image.discovery.indazn.com/jp/v3/jp/none/6kd71otp1q551iqthny0cytj9_image-header_pRow_1758616741000/fill/none/top/none/85/367/205/webp/image" alt="Game 1">
+            <span class="badge1">UPCOMING</span>
+            <div class="card-content">
+              <h3>Eurbank Jr. vs. Benn II</h3>
+              <p>Ring Magazine | Nov 15</p>
+            </div>
+          </a>
+        </div>
+                <div class="card-container">
+          <a href="https://boxcast.live/coming-soon" class="card">
+            <img src="https://image.discovery.indazn.com/jp/v3/jp/none/v65hu2lqy2xe1dabf79sbfs5h_image-header_pRow_1751993126000/fill/center/top/none/85/2112/1192/webp/image&quot" alt="Game 1">
+            <span class="badge1">UPCOMING</span>
+            <div class="card-content">
+              <h3>Ring IV: Night of Champions</h3>
+              <p>Ring Magazine | Nov 22</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Carousel JS (unchanged)
+const carousel = document.getElementById('carousel');
+const wrapper = document.getElementById('carouselWrapper');
+const nextBtn = document.getElementById('nextBtn');
+const prevBtn = document.getElementById('prevBtn');
+const cardWidth = 280;
+const gap = 32;
+const scrollStep = cardWidth + gap;
+let position = 0;
+nextBtn.addEventListener('click', () => {
+  if (position < carousel.scrollWidth - wrapper.clientWidth) {
+    position += scrollStep;
+    if(position > carousel.scrollWidth - wrapper.clientWidth) position = carousel.scrollWidth - wrapper.clientWidth;
+    carousel.style.transform = `translateX(-${position}px)`;
+  }
+});
+prevBtn.addEventListener('click', () => {
+  if (position > 0) {
+    position -= scrollStep;
+    if(position < 0) position = 0;
+    carousel.style.transform = `translateX(-${position}px)`;
+  }
+});
+
+// Second carousel controls
+const carousel2 = document.getElementById('carousel2');
+const wrapper2 = document.getElementById('carouselWrapper2');
+const nextBtn2 = document.getElementById('nextBtn2');
+const prevBtn2 = document.getElementById('prevBtn2');
+let position2 = 0;
+nextBtn2.addEventListener('click', () => {
+  if (position2 < carousel2.scrollWidth - wrapper2.clientWidth) {
+    position2 += scrollStep;
+    if(position2 > carousel2.scrollWidth - wrapper2.clientWidth) position2 = carousel2.scrollWidth - wrapper2.clientWidth;
+    carousel2.style.transform = `translateX(-${position2}px)`;
+  }
+});
+prevBtn2.addEventListener('click', () => {
+  if (position2 > 0) {
+    position2 -= scrollStep;
+    if(position2 < 0) position2 = 0;
+    carousel2.style.transform = `translateX(-${position2}px)`;
+  }
+});
+</script>
+
+<!-- Footer -->
+<div class="site-footer">Built with ❤️ — By Lampot</div>
 
 </body>
 </html>
-
-
-
-
-
