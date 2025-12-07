@@ -1,274 +1,637 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Boxcast Live — Home</title>
-  <style>
-    :root {
-      --bg:#100c0c;
-      --card:#0f0b0b;
-      --muted:#9a8f8f;
-      --accent:#ff3b3b;
-    }
-    *{box-sizing:border-box}
-    html,body{
-      height:100%;
-      margin:0;
-      font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial;
-      color:#fff;
-      background:var(--bg);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOXCAST.LIVE</title>
+<link rel="icon" type="image/jpeg" href="https://i.imgur.com/um2GnNk.png">
 
-    /* Background image */
-    body {
-      background: url("https://e0.365dm.com/25/09/768x432/skysports-crawford-terence_7019907.jpg?20250914071520") no-repeat center center fixed;
-      background-size: cover;
-    }
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    /* Dark overlay */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.75); /* dark overlay */
-      z-index:0;
-    }
+<style>
+:root{--border:#cfcfcf}
 
-    /* content above overlay */
-    .nav-bar, .hero, .section, .footer, .site-footer {
-      position: relative;
-      z-index: 1;
-    }
+body{
+  margin:0;
+  padding:0;
+  background:#fff;
+  font-family:'IBM Plex Mono', monospace;
+  color:#000;
+  text-transform:uppercase;
+}
 
-    /* nav bar */
-    .nav-bar {
-      display:flex;
-      align-items:center;
-      padding:12px 24px;
-      background:#0d0a0a;
-      gap:20px;
-      position:fixed;
-      top:0;
-      width:100%;
-      z-index:100;
-      box-shadow:0 2px 6px rgba(0,0,0,0.5);
-    }
-    .nav-bar img {
-      height:34px;
-      width:auto;
-    }
-    .nav-bar a {
-      color:#fff;
-      text-decoration:none;
-      font-size:15px;
-      font-weight:600;
-      padding:8px 14px;
-      border-radius:6px;
-      transition:background 0.2s;
-      cursor:pointer;
-    }
-    .nav-bar a:hover {
-      background:rgba(255,255,255,0.05);
-    }
+.navbar{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#fff;
+  padding:14px 20px;
+  border-bottom:2px solid var(--border);
+}
 
-    /* hero */
-    .hero {
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:0 20px;
-    }
-    .hero h1 {
-      font-size:64px;
-      font-weight:900;
-      letter-spacing:1px;
-      margin-bottom:20px;
-      text-transform:uppercase;
-      text-shadow:0 4px 12px rgba(0,0,0,0.7);
-    }
-    .hero p {
-      font-size:22px;
-      max-width:800px;
-      margin:0 auto 40px;
-      color:var(--muted);
-      line-height:1.5;
-    }
-    .hero a {
-      background:var(--accent);
-      padding:14px 28px;
-      border-radius:8px;
-      color:#fff;
-      text-decoration:none;
-      font-size:18px;
-      font-weight:700;
-      letter-spacing:0.5px;
-      transition:background 0.3s;
-    }
-    .hero a:hover {
-      background:#cc0000;
-    }
+.logo{
+  font-weight:700;
+  letter-spacing:1px;
+}
 
-    /* scheduled fights */
-    .section {
-      padding:80px 20px;
-      background:rgba(0,0,0,0.75);
-    }
-    .section h2 {
-      font-size:36px;
-      font-weight:800;
-      margin-bottom:30px;
-      text-align:center;
-      text-transform:uppercase;
-    }
-    .fight-list {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:20px;
-      max-width:1000px;
-      margin:0 auto;
-    }
-    .fight-card {
-      background:var(--card);
-      border-radius:12px;
-      box-shadow:0 4px 20px rgba(0,0,0,0.5);
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-    }
-    .fight-card img {
-      width: 100%;
-      height: 200px;     /* all posters same height */
-      object-fit: cover; /* crops evenly */
-      display:block;
-      transition: transform 0.3s;
-    }
-    .fight-card img:hover {
-      transform: scale(1.05); /* subtle zoom on hover */
-    }
-    .fight-card-content {
-      padding:20px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      flex-grow:1;
-    }
-    .fight-card-content h3 {
-      font-size:20px;
-      font-weight:700;
-      margin:0 0 10px;
-    }
-    .fight-card-content p {
-      font-size:14px;
-      color:var(--muted);
-      margin:0 0 15px;
-    }
-    .fight-card-content span {
-      background:var(--accent);
-      padding:6px 12px;
-      border-radius:6px;
-      font-size:13px;
-      font-weight:600;
-      align-self:flex-start;
-    }
+.container{
+  max-width:1100px;
+  margin:40px auto;
+  padding:20px;
+  border:2px solid var(--border);
+  background:#fff;
+  box-sizing:border-box;
+}
 
-    /* footer */
-    .footer {
-      padding:40px 20px;
-      text-align:center;
-      background:#0d0a0a;
-    }
-    .footer h3 {
-      font-size:22px;
-      font-weight:700;
-      margin-bottom:10px;
-    }
-    .footer p {
-      font-size:14px;
-      color:var(--muted);
-      margin:6px 0;
-    }
-    .site-footer {
-      text-align:center;
-      color:rgba(255,255,255,0.4);
-      font-size:13px;
-      margin-top:20px;
-    }
-  </style>
+/* PLAYER */
+.player-section{
+  display:none;
+  margin-bottom:30px;
+  border:2px solid var(--border);
+  padding:20px;
+}
+
+.player-row{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.video-wrapper{
+  flex:1 1 48%;
+  border:2px solid #c2c2c2;
+  background:#000;
+  position:relative;
+  overflow:hidden;
+  height:0;
+  padding-top:56.25%;
+}
+
+.video-wrapper iframe{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+.streams-menu{
+  position:absolute;
+  top:10px;
+  right:10px;
+}
+
+.streams-btn{
+  padding:8px 14px;
+  border:2px solid #999;
+  background:#f7f7f7;
+  cursor:pointer;
+  font-family:inherit;
+}
+
+.stream-options{
+  display:none;
+  position:absolute;
+  right:calc(100% + 8px);
+  top:0;
+  background:#fff;
+  border:2px solid var(--border);
+  flex-direction:row;
+  white-space:nowrap;
+}
+
+.stream-options button{
+  padding:8px 22px;
+  min-width:110px;
+  border:0;
+  background:#f5f5f5;
+  cursor:pointer;
+  border-right:1px solid #e5e5e5;
+  font-family:inherit;
+}
+
+.stream-options button:last-child{border-right:0}
+
+/* INFO BAR */
+.info-bar{
+  margin-top:12px;
+  border-top:2px solid #ccc;
+  padding-top:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.action-buttons{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.share{
+  padding:8px 16px;
+  border:2px solid #888;
+  background:#f0f0f0;
+  cursor:pointer;
+  font-family:inherit;
+  text-decoration:none;
+  color:#000;
+  text-transform:uppercase;
+}
+
+.share:active{
+  transform:scale(0.96);
+}
+
+/* MULTI-STREAM TOGGLE */
+.multi-toggle{
+  margin:12px 0;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+/* Notification popup */
+.notification {
+  position:fixed;
+  top:-50px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#fff;
+  padding:10px 20px;
+  border:2px solid #cfcfcf;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  font-size:12px;
+  z-index:9999;
+  transition:top 0.5s ease;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap:18px;
+}
+
+.stream-card{
+  border:2px solid #c2c2c2;
+  background:#f8f8f8;
+  cursor:pointer;
+  transition:0.12s;
+}
+
+.stream-card:hover{
+  background:#eee;
+  transform:translateY(-2px);
+}
+
+/* THUMB */
+.thumb{
+  width:100%;
+  height:160px;
+  position:relative;
+  overflow:hidden;
+  background:#000;
+}
+
+.thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.live-badge, .soon-badge{
+  position:absolute;
+  top:10px;
+  left:10px;
+  font-size:12px;
+  padding:4px 6px;
+  font-weight:600;
+}
+
+.live-badge{
+  background:#c80000;
+  color:#fff;
+}
+
+.soon-badge{
+  background:#fff;
+  color:#000;
+}
+
+.stream-info{
+  padding:12px;
+  border-top:2px solid #ddd;
+}
+
+.stream-title{
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+.stream-meta{
+  font-size:12px;
+  opacity:0.65;
+}
+
+/* FOOTER */
+.footer-wrapper{
+  position:fixed;
+  bottom:10px;
+  left:10px;
+  z-index:100;
+  display:flex;
+  align-items:center;
+}
+
+.footer-btn{
+  width:30px;
+  height:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  background:none;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.footer-menu{
+  display:flex;
+  gap:20px;
+  list-style:none;
+  margin-left:26px;
+  padding:0;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.15s ease;
+}
+
+.footer-menu.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.footer-menu a{
+  text-decoration:none;
+  color:#000;
+  font-weight:500;
+}
+
+/* MODAL STYLES */
+.modal-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:10000;
+}
+
+.modal-box{
+  background:#fff;
+  border:2px solid #cfcfcf;
+  padding:20px;
+  max-width:500px;
+  width:90%;
+  text-align:center;
+}
+
+.modal-box h2{
+  margin-top:0;
+}
+
+.modal-close{
+  margin-top:20px;
+  padding:8px 16px;
+  border:2px solid #888;
+  background:#f0f0f0;
+  cursor:pointer;
+  text-transform:uppercase;
+}
+</style>
 </head>
 <body>
 
-  <!-- Dark overlay -->
-  <div class="overlay"></div>
+<div class="navbar">
+  <div class="logo">BOXCAST.LIVE</div>
+</div>
 
-  <!-- Nav -->
-  <div class="nav-bar">
-    <img src="https://i.imgur.com/bq5dawz.png" alt="Boxcast Logo">
-    <a href="https://boxcast.live/">Home</a>
-    <a href="https://boxcast.live/streams">Live Events</a>
-    <a href="https://discord.gg/v9xbSxSBr7" target="_blank">Discord</a>
+<div class="container">
+
+  <!-- PLAYER -->
+  <div class="player-section" id="playerSection">
+
+    <div class="player-row">
+      <!-- MAIN VIDEO -->
+      <div class="video-wrapper" id="mainPlayerWrapper">
+        <iframe id="mainPlayer" src="" allowfullscreen></iframe>
+        <div class="streams-menu">
+          <div style="position:relative;">
+            <button id="streamsBtn" class="streams-btn">STREAMS</button>
+            <div id="streamOptions" class="stream-options">
+              <button onclick="selectStream(1)">STREAM 1</button>
+              <button onclick="selectStream(2)">STREAM 2</button>
+              <button onclick="selectStream(3)">STREAM 3</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECOND VIDEO -->
+      <div class="video-wrapper" id="secondPlayerWrapper" style="display:none;">
+        <iframe id="secondPlayer" src="" allowfullscreen></iframe>
+        <div class="streams-menu">
+          <div style="position:relative;">
+            <button id="streamsBtn2" class="streams-btn">STREAMS</button>
+            <div id="streamOptions2" class="stream-options">
+              <button onclick="selectSecondStream(1)">STREAM 1</button>
+              <button onclick="selectSecondStream(2)">STREAM 2</button>
+              <button onclick="selectSecondStream(3)">STREAM 3</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFO BAR + MULTI-STREAM UNDER VIDEOS -->
+    <div class="info-bar">
+      <div class="title" id="videoTitle">LIVE STREAM</div>
+      <div class="action-buttons">
+        <button class="share" id="discordBtn">DISCORD</button>
+        <button class="share" id="shareBtn">SHARE</button>
+      </div>
+    </div>
+
+    <div class="multi-toggle">
+      <label><input type="checkbox" id="multiStreamToggle"> MULTI-STREAM</label>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">Please select your second stream!</div>
+
   </div>
 
-  <!-- Hero -->
-  <div class="hero">
-    <h1>Welcome to Boxcast Live</h1>
-    <p>The Future of Combat Sports Streaming. Faster. Smoother. Stronger. Over 100 sources, built for true fight fans.</p>
-    <a href="https://boxcast.live/streams">Watch Live Now</a>
-  </div>
-
-  <!-- Scheduled Fights -->
-  <div class="section">
-    <h2>Scheduled Fights</h2>
-    <div class="fight-list">
-
-      <!-- Fight 1 -->
-      <div class="fight-card">
-        <img src="https://www.t-mobilearena.com/assets/img/1320x560-48a9896b94.jpg" alt="Poster">
-        <div class="fight-card-content">
-          <h3>UFC 320: Ankalaev vs. Pereira 2</h3>
-          <p>Main Event — October 4, 2025</p>
-          <span>Upcoming</span>
-        </div>
+  <!-- CARDS -->
+  <div class="grid">
+    <div class="stream-card" onclick="openVideo(1)">
+      <div class="thumb">
+        <img src="https://schedule.fightmag.com/wp-content/uploads/2025/10/pitbull-vs-roach-696x385.jpg.webp">
+        <div class="live-badge">LIVE</div>
       </div>
-
-      <!-- Fight 2 -->
-      <div class="fight-card">
-        <img src="https://image.discovery.indazn.com/jp/v3/jp/none/1bt4sfasqib9s1xsy25etkzef2_image-gallery_pRow_1757182854000/fill/none/top/none/85/550/205/webp/image" alt="Poster">
-        <div class="fight-card-content">
-          <h3>Joseph Parker vs. Fabio Wardley</h3>
-          <p>Heavyweight Championship — October 25, 2025</p>
-          <span>Upcoming</span>
-        </div>
+      <div class="stream-info">
+        <div class="stream-title">ISAAC CRUZ VS LAMONT ROACH</div>
+        <div class="stream-meta">3 STREAMS AVAILABLE • HD</div>
       </div>
+    </div>
 
-      <!-- Fight 3 -->
-      <div class="fight-card">
-        <img src="https://image.discovery.indazn.com/jp/v3/jp/none/v65hu2lqy2xe1dabf79sbfs5h_image-gallery_pRow_1751993139000/fill/none/top/none/85/550/205/webp/image" alt="Poster">
-        <div class="fight-card-content">
-          <h3>Ring IV: Night of Champions</h3>
-          <p>Lightweight Bout — November 22, 2025</p>
-          <span>Upcoming</span>
-        </div>
+    <div class="stream-card" onclick="openVideo(2)">
+      <div class="thumb">
+        <img src="https://prod.cosm-cdn.io/venue-events/Sports_Events/ufc/UFC323/Product_Assets/Event_Image/UFC_323_keyart_16x9_v1.webp">
+        <div class="live-badge">LIVE</div>
       </div>
+      <div class="stream-info">
+        <div class="stream-title">UFC 323</div>
+        <div class="stream-meta">3 STREAMS AVAILABLE • HD</div>
+      </div>
+    </div>
 
+    <div class="stream-card" onclick="openVideo(3)">
+      <div class="thumb">
+        <img src="https://images.daznservices.com/di/library/DAZN_News/fa/9b/jake-paul-vs-anthony-joshua-december-2025_tppqwk12evmd1gft4ze9d9qnh.jpg?t=-1800502502">
+        <div class="soon-badge">UPCOMING</div>
+      </div>
+      <div class="stream-info">
+        <div class="stream-title">JAKE PAUL VS ANTHONY JOSHUA</div>
+        <div class="stream-meta">COMING SOON</div>
+      </div>
     </div>
   </div>
+</div>
 
-  <!-- Footer -->
-  <div class="footer">
-    <h3>About Boxcast</h3>
-    <p>Boxcast Live brings you the best in combat sports streaming, with over 100 sources, seamless performance, and global fight coverage.</p>
-    <h3>Contact</h3>
-    <p>Email: support@boxcast.live</p>
-    <p>Twitter: <a href="https://twitter.com" style="color:var(--accent);text-decoration:none;">@BoxcastLive</a></p>
+<!-- FOOTER -->
+<div class="footer-wrapper">
+  <button id="footerMenuBtn" class="footer-btn">&gt;</button>
+  <ul id="footerMenu" class="footer-menu">
+    <li><a href="#" id="termsBtn">TERMS</a></li>
+    <li><a href="#" id="privacyBtn">PRIVACY</a></li>
+  </ul>
+</div>
+
+<!-- MODALS -->
+<div id="termsModal" class="modal-overlay">
+  <div class="modal-box">
+    <h2>Terms of Service</h2>
+    <p>BoxCast.Live – Terms of Service
+
+1. Acceptance of Terms
+By using BoxCast.Live (“the Website”), you agree to these Terms of Service. If you don’t agree, don’t use the Website.
+
+2. Use of the Website
+You may use BoxCast.Live only for lawful purposes. Don’t do anything illegal, abusive, or that could harm the Website, its users, or its content.
+
+3. No Guarantees
+BoxCast.Live is provided “as is.” We don’t promise that the Website will always work perfectly, be available, or be free of errors.
+
+4. Limitation of Liability
+You agree that BoxCast.Live, its owners, employees, or partners are not responsible for any damages—including financial loss—arising from your use of the Website. By using the Website, you waive your right to sue BoxCast.Live for anything related to your use.
+
+5. Content
+All content on BoxCast.Live is the property of the creators or the Website. We are not hosts of anything, we just allow the public to view links from other sources
+
+6. Termination
+We can block or remove your access at any time if we believe you are violating these Terms.
+
+7. Changes
+We may update these Terms at any time. Continued use of the Website means you accept the updated Terms.
+</p>
+    <button class="modal-close" onclick="closeModal('termsModal')">CLOSE</button>
   </div>
+</div>
 
-  <div class="site-footer">Built with ❤️ — By Lampot</div>
+<div id="privacyModal" class="modal-overlay">
+  <div class="modal-box">
+    <h2>Privacy Policy</h2>
+    <p>BoxCast.Live – Privacy Policy
+
+1. No Data Collection
+BoxCast.Live does not collect, track, or store any personal data from its users. You can use the Website anonymously.
+
+2. Cookies
+We do not use cookies or any tracking technology. Nothing about you is stored.
+
+3. Third-Party Content
+If you access content from third-party services through the Website, we are not responsible for their data practices.
+
+4. Security
+While we don’t collect data, we take basic measures to keep the Website running securely and reliably.
+
+5. Changes
+We may update this Privacy Policy occasionally. Continued use of the Website means you accept the updated policy.</p>
+    <button class="modal-close" onclick="closeModal('privacyModal')">CLOSE</button>
+  </div>
+</div>
+
+<script>
+const playerSection = document.getElementById('playerSection');
+const mainPlayer = document.getElementById('mainPlayer');
+const secondPlayer = document.getElementById('secondPlayer');
+const mainWrapper = document.getElementById('mainPlayerWrapper');
+const secondWrapper = document.getElementById('secondPlayerWrapper');
+const videoTitle = document.getElementById('videoTitle');
+const multiToggle = document.getElementById('multiStreamToggle');
+const notification = document.getElementById('notification');
+
+let currentMain = null;
+let currentSecond = null;
+
+/* OPEN VIDEO */
+function openVideo(id){
+  playerSection.style.display = "block";
+
+  const streams = {
+    1: "https://embedsports.top/embed/admin/ppv-isaac-cruz-vs-lamont-roach/",
+    2: "https://embedsports.top/embed/admin/ppv-ufc-323-dvalishvili-vs-yan-2/",
+    3: "https://www.youtube.com/embed/XfwHDk7kM10?si=QIed87_K5CF_TgLC"
+  };
+
+  const titles = {
+    1: "ISAAC CRUZ VS LAMONT ROACH — LIVE",
+    2: "UFC 323 — LIVE",
+    3: "JAKE PAUL VS ANTHONY JOSHUA — UPCOMING"
+  };
+
+  if(multiToggle.checked){
+    if(!currentMain){
+      currentMain = id;
+      mainPlayer.src = streams[id] + "1";
+      videoTitle.textContent = "MULTI-STREAM";
+      showNotification("Please select your second stream!");
+    } else if(!currentSecond && id !== currentMain){
+      currentSecond = id;
+      secondWrapper.style.display = "block";
+      secondPlayer.src = streams[id] + "1";
+    }
+  } else {
+    currentMain = id;
+    currentSecond = null;
+    secondWrapper.style.display = "none";
+    mainPlayer.src = streams[id] + "1";
+    videoTitle.textContent = titles[id];
+  }
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* STREAM SELECTORS */
+function selectStream(num){
+  if(currentMain){
+    const streams = {
+      1: "https://embedsports.top/embed/admin/ppv-isaac-cruz-vs-lamont-roach/",
+      2: "https://embedsports.top/embed/admin/ppv-ufc-323-dvalishvili-vs-yan-2/",
+      3: "https://www.youtube.com/embed/XfwHDk7kM10?si=QIed87_K5CF_TgLC"
+    };
+    mainPlayer.src = streams[currentMain] + num;
+  }
+}
+
+function selectSecondStream(num){
+  if(currentSecond){
+    const streams = {
+      1: "https://embedsports.top/embed/admin/ppv-isaac-cruz-vs-lamont-roach/",
+      2: "https://embedsports.top/embed/admin/ppv-ufc-323-dvalishvili-vs-yan-2/",
+      3: "https://www.youtube.com/embed/XfwHDk7kM10?si=QIed87_K5CF_TgLC"
+    };
+    secondPlayer.src = streams[currentSecond] + num;
+  }
+}
+
+/* Show notification */
+function showNotification(message){
+  notification.textContent = message;
+  notification.style.top = "20px";
+  setTimeout(()=>{ notification.style.top = "-50px"; }, 2500);
+}
+
+/* MULTI-STREAM TOGGLE */
+multiToggle.addEventListener('change', ()=>{
+  if(!multiToggle.checked){
+    secondWrapper.style.display = "none";
+    secondPlayer.src = "";
+    currentSecond = null;
+
+    const titles = {
+      1: "ISAAC CRUZ VS LAMONT ROACH — LIVE",
+      2: "UFC 323 — LIVE",
+      3: "JAKE PAUL VS ANTHONY JOSHUA — UPCOMING"
+    };
+    if(currentMain) videoTitle.textContent = titles[currentMain];
+  } else {
+    showNotification("Please select your second stream!");
+    videoTitle.textContent = "MULTI-STREAM";
+  }
+});
+
+/* STREAM MENU TOGGLE */
+document.getElementById('streamsBtn').addEventListener('click',()=>{
+  const opt = document.getElementById('streamOptions');
+  opt.style.display = opt.style.display==='flex'?'none':'flex';
+});
+
+document.getElementById('streamsBtn2').addEventListener('click',()=>{
+  const opt = document.getElementById('streamOptions2');
+  opt.style.display = opt.style.display==='flex'?'none':'flex';
+});
+
+/* SHARE BUTTON */
+document.getElementById('shareBtn').addEventListener('click',()=>{
+  if(navigator.share){
+    navigator.share({ title: document.title, url: window.location.href });
+  } else {
+    navigator.clipboard.writeText(window.location.href).then(()=>{
+      const btn = document.getElementById('shareBtn');
+      const old = btn.textContent;
+      btn.textContent = "COPIED!";
+      setTimeout(()=>btn.textContent = old,1200);
+    });
+  }
+});
+
+/* DISCORD BUTTON */
+document.getElementById('discordBtn').addEventListener('click', ()=>{
+  window.open('https://discord.gg/TUeJfaXq6W', '_blank');
+});
+
+/* FOOTER MENU */
+const footerBtn = document.getElementById('footerMenuBtn');
+const footerMenu = document.getElementById('footerMenu');
+let open = false;
+footerBtn.addEventListener('click',()=>{
+  open = !open;
+  footerMenu.classList.toggle('show');
+  footerBtn.textContent = open ? 'X' : '>';
+});
+
+/* TERMS & PRIVACY MODALS */
+document.getElementById('termsBtn').addEventListener('click',(e)=>{
+  e.preventDefault();
+  document.getElementById('termsModal').style.display='flex';
+});
+document.getElementById('privacyBtn').addEventListener('click',(e)=>{
+  e.preventDefault();
+  document.getElementById('privacyModal').style.display='flex';
+});
+
+function closeModal(id){
+  document.getElementById(id).style.display='none';
+}
+</script>
 
 </body>
 </html>
