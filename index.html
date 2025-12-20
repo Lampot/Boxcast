@@ -6,13 +6,13 @@
 <title>BOXCAST.LIVE</title>
 <link rel="icon" type="image/jpeg" href="https://i.imgur.com/um2GnNk.png">
 <!-- Social Preview -->
-<meta property="og:title" content="JAKE PAUL VS. ANTHONY JOSHUA: LIVE">
-<meta property="og:image" content="https://i.imgur.com/rAbKBzb.jpegg">
+<meta property="og:title" content="ANDREW TATE VS. CHASE DEMOOR: LIVE">
+<meta property="og:image" content="https://i.imgur.com/oW1DAKh.jpeg">
 <meta property="og:type" content="website">
 <meta property="og:description" content="Event Live now on Boxcast.live (AKA. TheRingTV)">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="JAKE PAUL VS. ANTHONY JOSHUA: LIVE">
-<meta name="twitter:image" content="https://i.imgur.com/rAbKBzb.jpeg">
+<meta name="twitter:title" content="ANDREW TATE VS. CHASE DEMOOR: LIVE">
+<meta name="twitter:image" content="https://i.imgur.com/oW1DAKh.jpeg">
   
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
@@ -391,7 +391,7 @@ body{
     <div class="stream-card" onclick="openVideo(1)">
       <div class="thumb">
         <img src="https://images.daznservices.com/di/library/DAZN_News/fa/9b/jake-paul-vs-anthony-joshua-december-2025_tppqwk12evmd1gft4ze9d9qnh.jpg?t=-1800502502">
-        <div class="live-badge">LIVE</div>
+        <div class="soon-badge">ENDED</div>
       </div>
       <div class="stream-info">
         <div class="stream-title">JAKE PAUL VS. ANTHONY JOSHUA</div>
@@ -402,7 +402,7 @@ body{
     <div class="stream-card" onclick="openVideo(2)">
       <div class="thumb">
         <img src="https://ytboxrec.com/wp-content/uploads/2025/10/andrew-tate-vs-chase-demoor-ytboxrec-boxing.jpg">
-        <div class="soon-badge">UPCOMING</div>
+        <div class="live-badge">LIVE</div>
       </div>
       <div class="stream-info">
         <div class="stream-title">ANDREW TATE VS. CHASE DEMOOR</div>
@@ -505,7 +505,7 @@ function openVideo(id){
 
   const streams = {
     1: "https://embedsports.top/embed/admin/ppv-jake-paul-vs-anthony-joshua/",
-    2: "https://embedsports.top/embed/admin/ppv-ufc-323-dvalishvili-vs-yan-2/",
+    2: "https://embedsports.top/embed/admin/ppv-misfits-mania-andrew-tate-vs-chase-de-moor/",
     3: "https://www.youtube.com/embed/XfwHDk7kM10?si=QIed87_K5CF_TgLC"
   };
 
@@ -542,7 +542,7 @@ function selectStream(num){
   if(currentMain){
     const streams = {
       1: "https://embedsports.top/embed/admin/ppv-jake-paul-vs-anthony-joshua/",
-      2: "https://embedsports.top/embed/admin/ppv-ufc-323-dvalishvili-vs-yan-2/",
+      2: "https://embedsports.top/embed/admin/ppv-misfits-mania-andrew-tate-vs-chase-de-moor/",
       3: "https://www.youtube.com/embed/XfwHDk7kM10?si=QIed87_K5CF_TgLC"
     };
     mainPlayer.src = streams[currentMain] + num;
@@ -553,7 +553,7 @@ function selectSecondStream(num){
   if(currentSecond){
     const streams = {
       1: "https://embedsports.top/embed/admin/ppv-jake-paul-vs-anthony-joshua/",
-      2: "https://embedsports.top/embed/admin/ppv-ufc-323-dvalishvili-vs-yan-2/",
+      2: "https://embedsports.top/embed/admin/ppv-misfits-mania-andrew-tate-vs-chase-de-moor/",
       3: "https://www.youtube.com/embed/XfwHDk7kM10?si=QIed87_K5CF_TgLC"
     };
     secondPlayer.src = streams[currentSecond] + num;
@@ -643,6 +643,7 @@ function closeModal(id){
 
 </body>
 </html>
+
 
 
 
